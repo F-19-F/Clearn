@@ -49,7 +49,6 @@ static int wait_ec(const uint32_t port, const uint32_t flag, const char value)//
 
 	return 0;
 }
-
 // For read_ec & write_ec command sequence see
 // section "4.10.1.4 EC Command Program Sequence" in
 // http://wiki.laptop.org/images/a/ab/KB3700-ds-01.pdf 
