@@ -53,7 +53,7 @@ Person::Person(Person&S)
 int main()
 {
 	Person S1;
-	// S1.Infor_Input();
+	S1.Infor_Input();
 	Person S2(S1);
 	S2.Infor_Show();
 	S1.Infor_Show();
