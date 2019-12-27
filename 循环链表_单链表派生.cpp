@@ -150,6 +150,7 @@ class Loop_list:public list
     bool Back_single();
     void Showlist(); //直接展示数据
     void Createlist();
+    friend void Problem();
 };
 Loop_list::~Loop_list()
 {
