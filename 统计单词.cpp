@@ -2,7 +2,7 @@
 #include <string.h>
 using namespace std;
 int times=0,point;
-void Small(char*a,char*b)
+void Small(char*a,char*b)//测试
 {
     for (;*a!='\0';a++)
     {
