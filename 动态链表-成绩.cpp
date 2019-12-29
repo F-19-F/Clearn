@@ -99,10 +99,30 @@ bool list::Addlist(int Mark,char *name)//在末尾添加一个结点
 	Last=Temp;
 	length++;
 }
-bool list::Deletelist(int n)
-{
-	return NULL;
-}
+ bool list::Deletelist(int n) //删除某个结点
+    {
+        if (n <= length && n > 0)
+        {
+            DATA *Temp = Head;
+            for (int i = 0; i < n - 1; i++) //寻找要删除结点前一位结点地址
+            {
+                Temp = Temp->Next;
+            }
+            DATA *Temp_t = Temp->Next->Next; //Temp_t用来存储删除结点的Next
+            free(Temp->Next);                     //释放内存
+            Temp->Next = Temp_t;                  //将后面的结点连接上去
+            if (n == length)                      //删除最后一个结点时更新Last
+            {
+                Last = Temp;
+            }
+            length--;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 void list::Showlist()
 {
 	DATA *temp;
