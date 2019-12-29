@@ -49,6 +49,10 @@ public:
                 Temp = Temp->Next;                                   //使用新分配的内存
                 Temp->Next = T;                                      //将插入的下一位结点地址赋给插入到的结点
                 Temp->data = data;                                   //给插入的结点赋值
+                if (n == length + 1)
+                {
+                    Last = Temp;
+                }
                 length++;
                 return true;
             }
@@ -69,6 +73,10 @@ public:
             DATA_Base *Temp_t = Temp->Next->Next; //Temp_t用来存储删除结点的Next
             free(Temp->Next);                     //释放内存
             Temp->Next = Temp_t;                  //将后面的结点连接上去
+            if (n == length)                      //删除最后一个结点时更新Last
+            {
+                Last = Temp;
+            }
             length--;
             return true;
         }
@@ -80,11 +88,15 @@ public:
     void Showlist() //直接展示数据
     {
         DATA_Base *temp;
-        temp = Head->Next;
-        while (temp != NULL)
+        if (temp = Head->Next)
+            while (temp != NULL)
+            {
+                cout << "data:" << temp->data << endl;
+                temp = temp->Next;
+            }
+        else
         {
-            cout << "data:" << temp->data << endl;
-            temp = temp->Next;
+            cout << "没有数据" << endl;
         }
     }
     void Createlist() //构建一个完整链表
@@ -141,24 +153,99 @@ public:
 };
 //以上是动态单链表
 //下面开始循环链表类的定义
-class Loop_list:public list
+class Loop_list : public list
 {
-    public:
-    Loop_list();//调用函数使得单链表转化成循环链表
+public:
+    Loop_list(); //调用函数使得单链表转化成循环链表
     ~Loop_list();
+    int Getnum(data_type f);
     bool Make_Loop();
     bool Back_single();
     void Showlist(); //直接展示数据
+    bool Insertlist(data_type data, int n);
+    bool Deletelist(int n);
     void Createlist();
-    friend void Problem();
+    friend void Problem(Loop_list(*Object)); //约瑟夫问题
 };
+void Loop_list::Createlist()
+{
+    Back_single();
+    list::Createlist();
+    Make_Loop();
+}
+int Loop_list::Getnum(data_type f)
+{
+    int i = 1;
+    DATA_Base *Temp = Head;
+    while (Temp->data != f)
+    {
+        if (i > length)
+            return 0;
+        i++;
+        Temp = Temp->Next;
+    }
+    return i;
+}
+bool Loop_list::Deletelist(int n)
+{
+    Back_single();
+    list::Deletelist(n);
+    Make_Loop();
+}
+void Problem(Loop_list *Object)
+{
+    for (int i = 1; i <= 41; i++)
+    {
+        (*Object).Insertlist(i, (*Object).length + 1);
+    }
+    int i = 1, t = 0, n = 1; //n为位次指示器，t为删除的个数
+    DATA_Base *Temp = (*Object).Head;
+    while (t < 39)
+    {
+        if (n > (*Object).length)
+        {
+            n = n % (*Object).length;
+        }
+        if (i == 3)
+        {
+            cout << Temp->data << endl;
+
+            Temp = Temp->Next;
+            (*Object).Deletelist(n);
+            i = 1;
+            t++;
+            continue;
+        }
+        Temp = Temp->Next;
+        i++;
+        n++;
+    }
+}
+bool Loop_list::Insertlist(data_type data, int n)
+{
+    Back_single();
+    list::Insertlist(data, n);
+    Make_Loop();
+}
 Loop_list::~Loop_list()
 {
     Back_single();
 }
-bool Loop_list::Back_single()//将循环链表还原成单链表，以便解决析构问题
+bool Loop_list::Back_single() //将循环链表还原成单链表，以便解决析构问题
 {
-    Last->Next=NULL;
+    if (Last)
+    {
+        Last->Next = NULL;
+    }
+    DATA_Base *Temp = (DATA_Base *)malloc(sizeof(DATA_Base));
+    Temp->Next = Head;
+    Head = Temp;
+    if (length == 0)
+    {
+        Last = Head;
+    }
+
+    return true;
 }
 Loop_list::Loop_list()
 {
@@ -166,41 +253,39 @@ Loop_list::Loop_list()
 }
 bool Loop_list::Make_Loop()
 {
-    if (Head==Last)
+    if (Last->Next == Head)
     {
         return true;
     }
     else
     {
-        
-        DATA_Base *Temp=Head->Next;
-        free(Head);//删除空结点
-        Head=Temp;
-        Last->Next=Head;//使最后一个结点的指针域指向第一个
+
+        DATA_Base *Temp = Head->Next;
+
+        free(Head); //删除空结点
+        Head = Temp;
+        if (length == 0)
+        {
+            Last = NULL;
+        }
+        else
+        {
+            Last->Next = Head; //使最后一个结点的指针域指向第一个
+        }
         return true;
     }
-    
 }
 void Loop_list::Showlist() //直接展示数据
-    {
-        DATA_Base *temp;
-        temp = Head;
-        do
-        {
-            cout << "data:" << temp->data << endl;
-            temp = temp->Next;
-        }
-        while (temp!=Head);
-    }
-     void Loop_list::Createlist()
-     {
-         list::Createlist();
-         Make_Loop();
-     }
+{
+    Back_single();
+    list::Showlist();
+    Make_Loop();
+}
 int main()
 {
     Loop_list a;
-    a.Createlist();
+    Loop_list *b = &a;
+    Problem(b);
     a.Showlist();
     return 0;
 }
