@@ -69,6 +69,10 @@ public:
             DATA_Base *Temp_t = Temp->Next->Next; //Temp_t用来存储删除结点的Next
             free(Temp->Next);                //释放内存
             Temp->Next = Temp_t;             //将后面的结点连接上去
+             if (n == length)                      //删除最后一个结点时更新Last
+            {
+                Last = Temp;
+            }
             length--;
             return true;
         }
@@ -143,6 +147,7 @@ int main()
 {
     list a;
     a.Createlist();
+    a.Insertlist(1,1);
     a.Showlist();
     return 0;
 }
