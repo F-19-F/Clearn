@@ -1,6 +1,6 @@
 #include <iostream>
 using namespace std;
-#define Stack_default_Length 1
+#define Stack_default_Length 100
 #define Data_Type int
 #define IncreaseNum 5
 class Stack //顺序存储的栈
@@ -94,7 +94,7 @@ int main()
             break;
         case 4:
             if(Test.Pop(&Temp))
-            cout<<Temp;
+            cout<<Temp<<endl;
             else
             {
                 cout<<"现在已经是空栈";
