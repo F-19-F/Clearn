@@ -18,14 +18,13 @@ public:
 Stack::Stack() : Stack_Length(Stack_default_Length)
 {
     top = base = new Data_Type[Stack_default_Length];
-    Stack_Length = Stack_default_Length;
 }
 bool Stack::Push(Data_Type *In)
 {
     //当长度大于最大存储容量时扩大内存
     if (top - base >= Stack_Length)
     {
-        base = (Data_Type *)realloc(base, Stack_Length + IncreaseNum);
+        base = (Data_Type *)realloc(base, (Stack_Length + IncreaseNum)*sizeof(Data_Type));
         if (!base)
         {
             return false;
