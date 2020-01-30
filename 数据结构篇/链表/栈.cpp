@@ -33,9 +33,7 @@ bool Stack::Push(Data_Type *In)
         top = base + Stack_Length;
         Stack_Length+=IncreaseNum;
     }
-    // *(top++)=*In;//为方便调试注释掉
-    *top=*In;
-    top++;
+    *(top++)=*In;
     return true;
 }
 bool Stack::Pop(Data_Type *A_return)
