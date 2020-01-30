@@ -1,5 +1,4 @@
 #define Stack_default_Length 1
-#define Data_Type int
 #define IncreaseNum 5
 class Stack //顺序存储的栈
 {

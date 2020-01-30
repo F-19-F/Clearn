@@ -1,7 +1,11 @@
 #include <iostream>
 #include<cstdio>
 #include"Stack.h"
+
+#define Data_Type int
+
 using namespace std;
+
 int bin2dec(char* Source)
 {
     Stack a;
@@ -21,6 +25,7 @@ int bin2dec(char* Source)
     }
     return Result;
 }
+
 int main()
 {
     char a[99];
