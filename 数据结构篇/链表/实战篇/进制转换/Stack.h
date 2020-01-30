@@ -1,5 +1,7 @@
-#define Stack_default_Length 1
+#define Stack_default_Length 20
 #define IncreaseNum 5
+//需要在头文件前面定义数据类型
+//Data_Type should be defined before this file being included
 class Stack //顺序存储的栈
 {
 private:
