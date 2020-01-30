@@ -1,15 +1,15 @@
 #include <iostream>
 using namespace std;
-#define Stack_default_Length 100
+#define Stack_default_Length 1
 #define Data_Type int
 #define IncreaseNum 5
+//这种顺序存储方式能减少代码长度
 class Stack //顺序存储的栈
 {
 private:
     Data_Type *top;
     Data_Type *base;
     int Stack_Length;
-
 public:
     Stack();
     bool Push(Data_Type *In);
@@ -89,14 +89,14 @@ int main()
         case 3:
             cout<<"压栈数据:";
             cin>>Temp;
-            Test.Pop(&Temp);
+            Test.Push(&Temp);
             break;
         case 4:
             if(Test.Pop(&Temp))
             cout<<Temp<<endl;
             else
             {
-                cout<<"现在已经是空栈";
+                cout<<"现在已经是空栈"<<endl;
             }
             break;
         }
