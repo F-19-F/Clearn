@@ -1,8 +1,8 @@
+#define Data_Type int
+
 #include <iostream>
 #include<cstdio>
 #include"Stack.h"
-
-#define Data_Type int
 
 using namespace std;
 

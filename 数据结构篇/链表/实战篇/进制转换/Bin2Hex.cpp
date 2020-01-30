@@ -1,8 +1,9 @@
+#define Data_Type char
+
 #include <iostream>
 #include <cstdio>
 #include "Stack.h"
 
-#define Data_Type char
 #define int2char(Source) Source < 9 ? (char)(Source + 48) : (char)('A' + (Source - 10))
 
 using namespace std;
