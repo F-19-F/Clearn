@@ -17,7 +17,7 @@ double RPN(char *Expression)
     double Opt_Num[2];
     while (*Expression != '\0')
     {
-        //将表达式中的数字型字符存储在数字缓冲栈中
+        //将表达式中的数字型字符存储在数字缓冲区中
         if ((*Expression >= '0' && *Expression <= '9') || *Expression == '.')
         {
             Num_Temp[Num_i++] = *Expression;
