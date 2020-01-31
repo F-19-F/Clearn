@@ -11,6 +11,7 @@ private:
 public:
     Stack();
     int Getlen();
+    Data_Type Get_Top();
     bool Push(Data_Type *In);
     bool Pop(Data_Type *A_return);
 };
@@ -21,6 +22,16 @@ Stack::Stack() : Stack_Length(Stack_default_Length)
 int Stack::Getlen()
 {
     return top-base;
+}
+Data_Type Stack::Get_Top()
+{
+    if (top!=base)
+    return *(top-1);
+    else
+    {
+        return 0;
+    }
+    
 }
 bool Stack::Push(Data_Type *In)
 {
