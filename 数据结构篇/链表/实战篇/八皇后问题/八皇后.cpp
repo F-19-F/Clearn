@@ -1,8 +1,6 @@
 #include <iostream>
 #include <cstring>
 using namespace std;
-//将接收到的棋盘复制给临时棋盘
-#define chb_cpy for (int i=0;i<8;i++){for (int j=0;j<8;i++){chb_t[i][j]=chb[i][j];}}
 
 int count=0;
 //判断在棋盘chb下，位置(x,y)是否安全
