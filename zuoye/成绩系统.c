@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include<string.h>
 #define max_score 100
 #define kinds 3
 #define name_1 语文
@@ -13,15 +14,64 @@
         printf("\n请输入第%d项成绩:", i);     \
         scanf("%d", score++);                 \
     }
+    #define search_temp  temp->add=source;\
+                    last_temp=temp;\
+                    temp->next=(data_temp*)malloc(sizeof(data_temp));\
+                    temp=temp->next;\
+                    temp->last=last_temp;
 //定义存储结构
 typedef struct data_base
 {
     char name[30];
+    char num[10];
     int score[kinds];
     int sum_score;
     int ave_score;
     data_base *next;
 } data_base;
+//定义搜索结果结构
+typedef struct data_temp
+{
+    data_base *last;
+    data_base *add;
+    data_temp *next;
+}data_temp;
+//mode为0对应全匹配搜索，1为关键词搜索,kind为种类,0为名字，1为学号
+data_temp* find(data_base* source,char *target,int mode,int kind)
+{
+    source=source->next;
+    data_temp *as_return;
+    as_return=(data_temp*)malloc(sizeof(data_temp));
+    as_return->add=NULL;
+    as_return->next=NULL;
+    data_temp *last_temp;
+    data_temp *temp=as_return;
+    if (mode==0)
+    {
+        while (source)
+        {
+            if (kind==0)
+            {
+                if (!strcmp(source->name,target))
+                {
+                    search_temp
+                }
+            }
+            if (kind==1)
+            {
+                if (!strcmp(source->num,target))
+                {
+                    search_temp
+                }
+            }
+            source=source->next;
+        }
+        if (as_return->add==NULL)
+        {
+            return NULL;
+        }
+    }
+}
 //交换链表中的两个相邻结点
 int getlength(data_base *target)
 {
@@ -73,12 +123,8 @@ int sort(data_base *target_s, int mode)
                 }
                 target=target->next;
             }
+            //重置target地址为链表首地址
             target = target_s->next;
-            //获取下次开始遍历的地址
-            for (int k = 0; k < i +1; k++)
-            {
-                target = target->next;
-            }
         }
     }
     else
