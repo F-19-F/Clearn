@@ -3,13 +3,20 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/usr/include/gtk-3.0/**"
             ],
             "defines": [],
             "compilerPath": "/usr/bin/gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "intelliSenseMode": "clang-x64"
+            "intelliSenseMode": "gcc-x64",
+            "compilerArgs": [
+                "`pkg-config --cflags --libs gtk+-2.0`"
+            ],
+            "browse": {
+                "path": []
+            }
         }
     ],
     "version": 4
