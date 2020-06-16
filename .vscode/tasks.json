@@ -6,7 +6,11 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "[ -d  ${fileDirname}/compiled ] || mkdir ${fileDirname}/compiled; g++ ${file} -o ${fileDirname}/compiled/${fileBasenameNoExtension}.out -g"
+            "command": "[ -d  ${fileDirname}/compiled ] || mkdir ${fileDirname}/compiled; g++ ${file} -o ${fileDirname}/compiled/${fileBasenameNoExtension}.out -g `pkg-config --cflags --libs gtk+-2.0`",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ]
 }
