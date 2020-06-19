@@ -4,25 +4,29 @@ int main()
 {
     int n=0;
     char temp;
-    int last;//记录上次输入的数据
+    int last=0;//记录上次输入的数据
     int *base;
     int min_temp[2];
     cin>>n;
     base =new int [n];//分配数组
+    for(int i=0;i<n;i++)
+    {
+        base[i]=0;
+    }
     while(getchar()!='\n');//吸收空格
     for (int i=0;i<n;i++)
     {
         while((temp=getchar())!='\n')
         {
-            if (temp>'0'&&temp<'10')//为数字时计数
+            if (temp>='1'&&temp<='9')//为数字时计数
             {
                 last=(int)(temp-48);
                 base[i]+=last;
             }
             else if (temp=='D')
             {
-                //last=last*2;
-                base[i]+=last*2;
+                last=last*2;
+                base[i]+=last;
             }
             else
             {
