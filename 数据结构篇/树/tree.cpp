@@ -50,6 +50,7 @@ bool Tree_Base::Add_Child(int child_num)
     temp->next=NULL;
     Tail->next=temp;
     Tail=temp;
+    return true;
 }
 //没有初始化就返回或者已经删空就返回1，没有对应孩子就返回2，正常返回0
 int Tree_Base::Del_Child(int child_num)
@@ -101,12 +102,34 @@ Tree_Base::~Tree_Base()
 class tree
 {
 private:
-    Tree_Base *base;
+    Tree_Base *base,*tail;
+    int Num_Point;
 public:
-    tree();
+    tree(Data_Type First_Data);
+    bool Add_Node(int Parent,Data_Type data);
+    void Print_Tree();
 };
-tree::tree()
+tree::tree(Data_Type First_Data)
 {
     //初始化链表
-    base=new Tree_Base(0,-2,0);
+    Num_Point=0;
+    base=new Tree_Base(Num_Point++,-1,First_Data);
+    base->next=NULL;
+    tail=base;
+}
+bool tree::Add_Node(int Parent,Data_Type data)
+{
+    Tree_Base *temp=new Tree_Base(Num_Point++,Parent,data);
+    tail->next=temp;
+    tail=temp;
+    return true;
+}
+void tree::Print_Tree()
+{
+    
+}
+int main()
+{
+
+    return 0;
 }
