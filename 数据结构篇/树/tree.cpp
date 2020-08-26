@@ -22,6 +22,7 @@ public:
     int Del_Child(int child_num);
     Data_Type Get_Data();
     Tree_Child_Rela *Get_Child_Rela();
+    int Get_Parent();
     ~Tree_Base();
 };
 Tree_Base::Tree_Base(int num, int parent, int data)
@@ -100,6 +101,10 @@ Tree_Child_Rela *Tree_Base::Get_Child_Rela()
     }
     return Head->next;
 }
+int Tree_Base::Get_Parent()
+{
+    return parent;
+}
 Tree_Base::~Tree_Base()
 {
     Tree_Child_Rela *temp = Head;
@@ -115,7 +120,9 @@ class tree
 {
 private:
     Tree_Base *base, *tail;
+    int *Del_Chain;
     int Num_Point;
+    int Deleted_Sum;
 
 public:
     tree(Data_Type First_Data);
@@ -123,20 +130,23 @@ public:
     int Tree_Print();
     int Recu_Print(int level, Tree_Base *target, bool Paren_Print);
     int Child_Print(int level, Tree_Child_Rela *target);
+    bool Del_Node(int num);
     Tree_Base *GetBPoint(int num);
 };
 tree::tree(Data_Type First_Data)
 {
     //初始化链表
     Num_Point = 0;
+    Deleted_Sum = 0;
     base = new Tree_Base(Num_Point++, -1, First_Data);
     base->next = NULL;
+    Del_Chain = NULL;
     tail = base;
 }
 bool tree::Add_Node(int Parent, Data_Type data)
 {
     Tree_Base *temp = new Tree_Base(Num_Point++, Parent, data);
-    (GetBPoint(Parent)->Add_Child(Num_Point-1));
+    (GetBPoint(Parent)->Add_Child(Num_Point - 1));
     temp->next = NULL;
     tail->next = temp;
     tail = temp;
@@ -160,7 +170,7 @@ Tree_Base *tree::GetBPoint(int num)
 }
 int tree::Tree_Print()
 {
-    return Recu_Print(0,base,false);
+    return Recu_Print(0, base, false);
 }
 int tree::Recu_Print(int level, Tree_Base *target, bool Paren_Print)
 {
@@ -201,20 +211,38 @@ int tree::Recu_Print(int level, Tree_Base *target, bool Paren_Print)
         cout << (GetBPoint(temp->num))->Get_Data();
         R_used++;
         //如果当前孩子结点也有孩子结点,则开始递归打印其孩子结点
-        if (!Btemp->Get_Child_Rela())
+        if (Btemp->Get_Child_Rela())
         {
-            R_used += Recu_Print(level + 2, Btemp ,true);
+            R_used += Recu_Print(level + 2, Btemp, true);
         }
         temp = temp->next;
     }
     return R_used;
 }
-
+bool tree::Del_Node(int num)
+{
+    //寻找对应结点的地址
+    Tree_Base *temp = GetBPoint(num);
+    Tree_Base *Btemp = GetBPoint(temp->Get_Parent());
+    Tree_Base *Next_bak;
+    //在删除结点的双亲的孩子链中删除num结点
+    Btemp->Del_Child(num);
+    //析构对应结点
+    temp->~Tree_Base();
+    Num_Point--;
+}
 int main()
 {
     tree a(1);
-    a.Add_Node(0,2);
-    a.Add_Node(0,3);
+    for (int i = 0; i < 3; i++)
+    {
+        a.Add_Node(0, i);
+    }
+    for (int i = 0; i < 2; i++)
+    {
+        a.Add_Node(1, i);
+    }
     a.Tree_Print();
+    getchar();
     return 0;
 }
